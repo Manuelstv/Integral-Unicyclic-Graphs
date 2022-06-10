@@ -1,0 +1,38 @@
+#Busca por todos os grafos com |n| pendentes, da forma C4(p,q,r,t) p,q,r>0 e t>=0
+#seja n=|V|-4
+#loop sobre n
+for n in range(4,5):
+    print (n)
+    #so estamos interessados nos casos numero de vertices>21 => n>17
+    for k in range (n,0,-1):
+        g1 = Graph({1:[2,4],3:[2,4]})
+        for p in range(1,k+1):
+            list1 = list(range(10000+p,10001+p))
+            list1.append(1)
+            g1.add_path(list1)
+        for k2 in range(n-k,0,-1):
+            g2 = g1.copy()
+            for q in range(1,k2+1):
+                list2 = list(range(20000+q,20001+q))
+                list2.append(2)
+                g2.add_path(list2)
+            for k3 in range(n-k-k2,0,-1):
+                g3 = g2.copy()
+                for r in range(1,k3+1):
+                    list3 = list(range(30000+r,30001+r))
+                    list3.append(3)
+                    g3.add_path(list3)
+                    g4 = g3.copy()
+                    t = 0
+                    for t in range (1,n-p-q-r+1):
+                        list4 = list(range(40000+t,40001+t))
+                        list4.append(4)
+                        g4.add_path(list4)
+                    print("p,q,r,t = {} {} {} {}".format(p,q,r,t))
+                    g4.show()
+                    if(g4.spectrum()[0]-round(g4.spectrum()[0],1)==0):
+                        if(g4.spectrum()[1]-round(g4.spectrum()[1],1)==0):
+                            print(g4.spectrum())
+                            print("p,q,r,t = {} {} {} {}".format(p,q,r,t))
+                            g4.show()
+                            
